@@ -11,6 +11,8 @@ ZipRerank trains Qwen3-VL for document page retrieval through:
 
 The model learns to rerank document pages by their visual relevance to a query, achieving strong performance on the MMDocIR benchmark.
 
+For efficient inference, ZipRerank supports **single-token logits decoding** for fast ranking via a single forward pass, and **Query-Image Early Interaction (QI-EI)**, a visual token pruning method that selects query-relevant image patches early in the pipeline. 
+
 ## Installation
 
 ### Prerequisites
