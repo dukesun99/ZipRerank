@@ -1,0 +1,37 @@
+# ZipRerank Requirements
+# Install with: pip install -r requirements.txt
+
+# Core ML frameworks
+torch>=2.1.0
+transformers>=4.41.0
+accelerate>=0.25.0
+
+# Vision models
+qwen-vl-utils>=0.0.2
+
+# Data processing
+datasets>=2.14.0
+pandas>=2.0.0
+pyarrow>=12.0.0
+numpy>=1.24.0
+pillow>=9.5.0
+
+# Optimization
+bitsandbytes>=0.42.0
+
+# Experiment tracking (optional)
+wandb>=0.15.0
+
+# Evaluation dependencies
+tqdm>=4.65.0
+
+# API clients (for baselines)
+openai>=1.0.0
+python-dotenv>=1.0.0
+
+# Font handling for document rendering
+fonttools>=4.38.0
+
+# Flash Attention (optional, for faster training)
+# pip install flash-attn --no-build-isolation
+
