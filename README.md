@@ -1,6 +1,6 @@
 # ZipRerank
 
-A two-stage training framework for optical document reranking using vision-language models.
+A framework for training highly efficient list-wise multimodal rerankers for long documents.
 
 ## Overview
 
