@@ -36,6 +36,18 @@ pip install -r requirements.txt
 pip install flash-attn --no-build-isolation
 ```
 
+### External Dependencies
+
+**MMDocIR Dataset & First-Stage Retrieval**: For first-stage retrieval and dataset files, clone the MMDocIR repository:
+
+```bash
+git clone https://github.com/MMDocIR/MMDocIR.git ../MMDocIR
+# Or set MMDOCIR_PATH environment variable to your MMDocIR location
+export MMDOCIR_PATH=/path/to/MMDocIR
+```
+
+The `first_stage_retrieval.py` script requires MMDocIR's `vision_wrapper.py` for the DSE model. Alternatively, use pre-computed first-stage results if available.
+
 ## Data Preparation
 
 ### Stage 1: Rank Zephyr Dataset

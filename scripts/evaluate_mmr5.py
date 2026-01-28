@@ -32,7 +32,6 @@ from transformers import Qwen2_5_VLProcessor, Qwen2_5_VLForConditionalGeneration
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
-sys.path.insert(0, str(Path(__file__).parent.parent / "MMDocIR"))
 
 
 class InferenceTimer:

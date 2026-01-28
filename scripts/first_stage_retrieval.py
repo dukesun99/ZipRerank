@@ -24,8 +24,18 @@ from PIL import Image
 from tqdm import tqdm
 import torch
 
-# Add MMDocIR to path for vision_wrapper
-sys.path.insert(0, str(Path(__file__).parent.parent / "MMDocIR"))
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# MMDocIR path for DSE model (vision_wrapper)
+# Set MMDOCIR_PATH environment variable or clone MMDocIR repo to ../MMDocIR
+MMDOCIR_PATH = os.environ.get("MMDOCIR_PATH", str(Path(__file__).parent.parent.parent / "MMDocIR"))
+if Path(MMDOCIR_PATH).exists():
+    sys.path.insert(0, MMDOCIR_PATH)
+else:
+    print(f"WARNING: MMDocIR not found at {MMDOCIR_PATH}")
+    print("DSE first-stage retrieval requires MMDocIR's vision_wrapper.py")
+    print("Clone MMDocIR or set MMDOCIR_PATH environment variable")
 
 
 def load_annotations(annotation_file: str) -> List[Dict]:
@@ -497,10 +507,6 @@ def evaluate_first_stage_results(results: Dict, annotations: List[Dict], mode: s
     """
     Evaluate first-stage retrieval results using official MMDocIR evaluation functions.
     """
-    # Add MMDocIR to path for metric_eval
-    mmdocir_path = Path(__file__).parent.parent / "MMDocIR"
-    sys.path.insert(0, str(mmdocir_path))
-    
     from utils.metric_eval import evaluate_page, evaluate_layout
     
     # Convert to official format
@@ -698,9 +704,14 @@ def main():
                 evaluate_first_stage_results(layout_results, annotations, mode="layout", model_name="DSE-wikiss")
         return
     
-    # Change to MMDocIR directory for model loading
+    # Change to MMDocIR directory for model loading (DSE may use relative paths)
     original_dir = os.getcwd()
-    mmdocir_dir = Path(__file__).parent.parent / "MMDocIR"
+    mmdocir_dir = Path(MMDOCIR_PATH)
+    if not mmdocir_dir.exists():
+        print(f"ERROR: MMDocIR directory not found at {mmdocir_dir}")
+        print("DSE first-stage retrieval requires MMDocIR repository.")
+        print("Set MMDOCIR_PATH environment variable or clone to ../MMDocIR")
+        sys.exit(1)
     os.chdir(mmdocir_dir)
     
     # Determine model path

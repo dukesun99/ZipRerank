@@ -30,7 +30,6 @@ from transformers.models.qwen3_vl import Qwen3VLForConditionalGeneration
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
-sys.path.insert(0, str(Path(__file__).parent.parent / "MMDocIR"))
 
 # Reuse shared functions from utils
 from utils.data_utils import create_ranking_prompt_for_training, prepare_ranking_inputs
