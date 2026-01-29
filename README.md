@@ -56,7 +56,6 @@ The `first_stage_retrieval.py` script requires MMDocIR's `vision_wrapper.py` for
 
 The rank_zephyr dataset is automatically downloaded from HuggingFace:
 - Dataset: `rryisthebest/rank_zephyr_training_data_alpha`
-- ~300k text ranking samples with relevance labels
 
 ### Stage 2: MMDocIR Dataset
 
