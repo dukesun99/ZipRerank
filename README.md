@@ -210,3 +210,16 @@ ZipRerank/
 └── README.md
 ```
 
+## Citation
+
+If you find ZipRerank useful, please cite:
+
+```bibtex
+@article{sun2026very,
+  title={Very Efficient Listwise Multimodal Reranking for Long Documents},
+  author={Sun, Yiqun and Wei, Pengfei and Hsieh, Lawrence B},
+  journal={arXiv preprint arXiv:2605.11864},
+  year={2026}
+}
+```
+
