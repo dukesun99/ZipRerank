@@ -1515,8 +1515,15 @@ def initialize_dataset_and_loader(args, tokenizer, processor=None):
                 # Convert to list of dicts
                 hf_data = [item for item in hf_dataset]
                 
-                # Auto-detect and convert if PE-Rank format
-                if hf_data and detect_pe_rank_format(hf_data[0]):
+                # Auto-detect data format (same handling as local files)
+                if hf_data and detect_mmdocir_openai_format(hf_data[0]):
+                    # MMDocIR format - page images are joined from parquet later
+                    logger.info(f"Detected MMDocIR OpenAI format in HuggingFace dataset {dataset_path}")
+                    logger.info(f"  Loaded {len(hf_data)} MMDocIR training samples")
+                    for item in hf_data:
+                        item['_mmdocir_format'] = True
+                    raw_data.extend(hf_data)
+                elif hf_data and detect_pe_rank_format(hf_data[0]):
                     logger.info(f"Detected PE-Rank format in HuggingFace dataset, converting...")
                     converted_data = []
                     for i, item in enumerate(hf_data):

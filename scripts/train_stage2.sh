@@ -25,7 +25,9 @@ conda activate rank_llm_training
 
 # Model and data paths
 CHECKPOINT_PATH="models/ziprerank_stage1/final"
-TRAIN_DATA_PATH="data/mmdocir_train/training_data.jsonl"
+# GPT-5-mini distilled rankings are hosted on the HuggingFace Hub.
+# (The page images are still loaded locally from the MMDocIR train parquet below.)
+TRAIN_DATA_PATH="dukesunmtri/ZipRerank_GPT-5-mini_MMDocIR_Train"
 MMDOCIR_PARQUET_DIR="MMDocIR/MMDocIR_Train_Dataset/parquet"
 OUTPUT_DIR="models/ziprerank_stage2"
 

@@ -15,7 +15,7 @@ The model learns to rerank document pages by their visual relevance to a query, 
 
 For efficient inference, ZipRerank supports **single-token logits decoding** for fast ranking via a single forward pass, and **Query-Image Early Interaction (QI-EI)**, a visual token pruning method that selects query-relevant image patches early in the pipeline. 
 
-> **🚧 Work in Progress** — We will release the stage-2 distillation data soon.
+> **📦 Stage-2 distillation data released** — The GPT-5-mini distilled rankings used for Stage 2 are available on the HuggingFace Hub: [`dukesunmtri/ZipRerank_GPT-5-mini_MMDocIR_Train`](https://huggingface.co/datasets/dukesunmtri/ZipRerank_GPT-5-mini_MMDocIR_Train). Stage 2 training loads it automatically.
 
 ## Installation
 
@@ -63,16 +63,25 @@ The rank_zephyr dataset is automatically downloaded from HuggingFace:
 
 ### Stage 2: MMDocIR Dataset
 
-1. Download MMDocIR dataset from the official repository
-2. Generate training data with GPT relevance rankings:
+The GPT-5-mini distilled rankings are hosted on the HuggingFace Hub
+([`dukesunmtri/ZipRerank_GPT-5-mini_MMDocIR_Train`](https://huggingface.co/datasets/dukesunmtri/ZipRerank_GPT-5-mini_MMDocIR_Train)),
+and `scripts/train_stage2.sh` loads them automatically — no local generation step is required.
 
-```bash
-python scripts/generate_training_data.py \
-    --parquet_dir MMDocIR/MMDocIR_Train_Dataset/parquet \
-    --output_dir data/mmdocir_train
-```
+The dataset only contains the queries and GPT-distilled rankings; the page **images** are
+joined at runtime from the official MMDocIR train parquet files, so you still need to download
+the MMDocIR dataset and point `--mmdocir_parquet_dir` at `MMDocIR/MMDocIR_Train_Dataset/parquet`.
 
-3. Generate first-stage retrieval results for evaluation:
+> Optional: to regenerate the rankings yourself (e.g. with a different teacher model), run:
+>
+> ```bash
+> python scripts/generate_training_data.py \
+>     --parquet_dir MMDocIR/MMDocIR_Train_Dataset/parquet \
+>     --output_dir data/mmdocir_train
+> ```
+>
+> Then set `TRAIN_DATA_PATH=data/mmdocir_train/training_data.jsonl` in `scripts/train_stage2.sh`.
+
+Generate first-stage retrieval results for evaluation:
 
 ```bash
 python scripts/first_stage_retrieval.py \
